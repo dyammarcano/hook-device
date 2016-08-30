@@ -2,11 +2,20 @@
 
 const crc32 = require('js-crc').crc32;
 const os = require('os');
-const ipify = require('ipify');
+const request = require('request');
+const https = require('https');
 
-var publicIp = ipify((err, ip) => {
-  console.log(ip);
-  return ip;
+var public_ip = '';
+https.get('https://api.ipify.org', (res) => {
+  //console.log('statusCode:', res.statusCode);
+  //console.log('headers:', res.headers);
+
+  res.on('data', (d) => {
+    public_ip = d;
+  });
+
+}).on('error', (e) => {
+  console.error(e);
 });
 
 var inter = os.networkInterfaces();
@@ -21,7 +30,7 @@ for (var i in inter) {
     if (address.family === 'IPv4' && !address.internal) {
       device.device = crc32(address.mac).toUpperCase();
       device.local = address.address;
-      device.public = publicIp;
+      device.public = public_ip;//request.get('http://api.ipify.org');
       device.netmask = address.netmask;
       device.mac = address.mac;
     }

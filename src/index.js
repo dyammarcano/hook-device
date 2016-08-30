@@ -22,12 +22,16 @@ socket.on('timestamp', (data) => {
 socket.on('device', (data) => {
   //console.log(data);
   cache.put('id', data.id);
-  console.log(cache.get('id'));
+  console.log(`id: ${cache.get('id')}`);
 });
 
 socket.on('message', (data) => {
   console.log(data);
 });
+
+/*socket.on('timestamp', (data) => {
+  console.log(data);
+});*/
 
 socket.on('disconnect', () => {
   console.log(`server disconnect: ${ new Date() }`);
