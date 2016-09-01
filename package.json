@@ -1,9 +1,9 @@
 {
   "name": "hook-device",
   "version": "1.0.0",
-  "main": "./app",
+  "main": "./app.js",
   "scripts": {
-    "start": "node ./app"
+    "start": "node ./app.js"
   },
   "private": true,
   "author": "Dyam Marcano <dyam.marcano@gmail.com>",
