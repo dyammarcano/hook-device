@@ -11,6 +11,17 @@ const publicIp = require('public-ip');
 const device = require('./lib/interface');
 const cfg = require('./config');
 
+var conn = -1;
+var reconn = 0;
+
+var reconnections = () => {
+  conn += 1;
+  if (!_.isEqual(reconn, conn)) {
+    reconn += 1;
+    console.log(`Reconnections Times: ${ reconn }`);
+  }
+}
+
 publicIp.v4().then((ip) => {
   device.public_ip = ip;
 });
@@ -20,7 +31,7 @@ let app = express();
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 const server = require('https').createServer(cfg.cert, app).listen(cfg.port, () => {
-  console.log('http on port ' + cfg.port);
+  //console.log('http on port ' + cfg.port);
 });
 
 let sio = socketio(server, { path: '/wetty/socket.io' });
@@ -59,6 +70,7 @@ const cio = io(cfg.server);
 cio.on('connect', () => {
   cio.emit('device', device);
   console.log(`Connection: ${ new Date() }`);
+  reconnections();
 
   cio.on('device', data => {
     cache.put('id', data.id);
