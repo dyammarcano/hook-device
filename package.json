@@ -1,11 +1,12 @@
 {
   "name": "hook-device",
   "version": "1.0.0",
-  "main": "./src",
+  "main": "./app",
   "scripts": {
-    "start": "node ./src"
+    "start": "node ./app"
   },
-  "author": "dyam.marcano@gmail.com",
+  "private": true,
+  "author": "Dyam Marcano <dyam.marcano@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "express": "^4.14.0",
@@ -19,15 +20,7 @@
     "request": "^2.74.0",
     "setup": "0.0.3",
     "socket.io": "^1.4.8",
-    "socket.io-client": "^1.4.8",
-    "tty.js": "^0.2.15"
-  },
-  "config": {
-    "port": "8080",
-    "username": "foo",
-    "password": "bar",
-    "https": "false",
-    "bind": "0.0.0.0"
+    "socket.io-client": "^1.4.8"
   },
   "devDependencies": {},
   "repository": {

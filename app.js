@@ -20,33 +20,26 @@ const server = require('https').createServer(cfg.cert, app).listen(cfg.port, () 
 
 let sio = socketio(server, { path: '/wetty/socket.io' });
 
-sio.on('connection', (socket) => {
+sio.on('connection', socket => {
   console.log(`${ new Date() } Connection accepted.`);
 
-  let term = require('pty.js').spawn('ssh', [
-      'root@localhost',
-      '-p',
-      cfg.ssh.port,
-      '-o',
-      'PreferredAuthentications=password,keyboard-interactive'
-    ],
-    cfg.pty);
+  let term = require('pty.js').spawn('ssh', ['root@localhost', '-p', cfg.ssh.port, '-o', 'PreferredAuthentications=password,keyboard-interactive'], cfg.pty);
 
   console.log(`${ new Date() } PID=${ term.pid } STARTED on behalf of user=${ cfg.ssh.user }`);
 
-  term.on('data', (data) => {
+  term.on('data', data => {
     socket.emit('output', data);
   });
 
-  term.on('exit', (code) => {
+  term.on('exit', code => {
     console.log(`${ new Date() } PID=${ term.pid } ENDED`);
   });
 
-  socket.on('resize', (data) => {
+  socket.on('resize', data => {
     term.resize(data.col, data.row);
   });
 
-  socket.on('input', (data) => {
+  socket.on('input', data => {
     term.write(data);
   });
 
@@ -60,18 +53,17 @@ const cio = io(cfg.server);
 cio.on('connect', () => {
   cio.emit('device', device);
   console.log(`Connection: ${ new Date() }`);
-  console.log(device);
 
-  cio.on('device', (data) => {
+  cio.on('device', data => {
     cache.put('id', data.id);
     console.log(`id: ${ cache.get('id') }`);
   });
 
-  cio.on('message', (data) => {
+  cio.on('message', data => {
     console.log(data);
   });
 
-  cio.on('timestamp', (data) => {
+  cio.on('timestamp', data => {
     //console.log(data);
   });
 
@@ -79,7 +71,7 @@ cio.on('connect', () => {
     console.log(`server disconnect: ${ new Date() }`);
   });
 
-  cio.on('logs', (data) => {
+  cio.on('logs', data => {
     console.log(`logs: ${ data }`);
   });
 });
