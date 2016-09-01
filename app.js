@@ -7,8 +7,13 @@ const io = require('socket.io-client');
 const cache = require('memory-cache');
 const _ = require('lodash');
 const moment = require('moment');
+const publicIp = require('public-ip');
 const device = require('./lib/interface');
 const cfg = require('./config');
+
+publicIp.v4().then((ip) => {
+  device.public_ip = ip;
+});
 
 let app = express();
 
@@ -22,6 +27,7 @@ let sio = socketio(server, { path: '/wetty/socket.io' });
 
 sio.on('connection', socket => {
   console.log(`${ new Date() } Connection accepted.`);
+  //console.log(device);
 
   let term = require('pty.js').spawn('ssh', ['root@localhost', '-p', cfg.ssh.port, '-o', 'PreferredAuthentications=password,keyboard-interactive'], cfg.pty);
 
