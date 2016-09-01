@@ -29,8 +29,8 @@ for (var i in inter) {
     var address = inter[i][j];
     if (address.family === 'IPv4' && !address.internal) {
       device.device = crc32(address.mac).toUpperCase();
-      device.local = address.address;
-      device.public = public_ip;//request.get('http://api.ipify.org');
+      device.local_ip = address.address;
+      device.public_ip = public_ip;//request.get('http://api.ipify.org');
       device.netmask = address.netmask;
       device.mac = address.mac;
     }

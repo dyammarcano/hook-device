@@ -1,5 +1,6 @@
 "use strict";
 
+//const https = require('https');
 const io = require('socket.io-client');
 const cache = require('memory-cache');
 const _ = require('lodash');
@@ -22,7 +23,7 @@ socket.on('timestamp', (data) => {
 socket.on('device', (data) => {
   //console.log(data);
   cache.put('id', data.id);
-  console.log(`id: ${cache.get('id')}`);
+  console.log(`id: ${ cache.get('id') }`);
 });
 
 socket.on('message', (data) => {
@@ -38,5 +39,5 @@ socket.on('disconnect', () => {
 });
 
 socket.on('logs', (data) => {
-  console.log(`logs: ${data}`);
+  console.log(`logs: ${ data }`);
 });
