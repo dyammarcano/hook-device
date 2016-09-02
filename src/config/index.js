@@ -6,8 +6,8 @@ const path = require('path');
 module.exports = {
   server: "http://node-5622245.rhcloud.com:8000",
   cert: {
-    key: fs.readFileSync(path.resolve('./config/certificate/key.pem')),
-    cert: fs.readFileSync(path.resolve('./config/certificate/cert.pem'))
+    key: fs.readFileSync(path.resolve('./src/config/certificate/key.pem')),
+    cert: fs.readFileSync(path.resolve('./src/config/certificate/cert.pem'))
   },
   ssh: {
     user: 'root@localhost',

@@ -1,14 +1,15 @@
 {
   "name": "hook-device",
   "version": "1.0.0",
-  "main": "./app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "node index.js"
   },
   "private": true,
   "author": "Dyam Marcano <dyam.marcano@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bunyan": "^1.8.1",
     "express": "^4.14.0",
     "js-crc": "^0.1.0",
     "lodash": "^4.15.0",
