@@ -22,6 +22,8 @@ var reconnections = () => {
   }
 }
 
+//TODO observable in device data to keep updated 
+
 publicIp.v4().then((ip) => {
   device.public_ip = ip;
 });
