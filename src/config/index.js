@@ -11,7 +11,7 @@ module.exports = {
   },
   ssh: {
     user: 'root@localhost',
-    port: 2222
+    port: 22
   },
   pty: {
     name: 'xterm-256color',
