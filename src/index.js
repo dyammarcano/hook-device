@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
@@ -22,7 +24,7 @@ var reconnections = () => {
   }
 }
 
-//TODO observable in device data to keep updated 
+//TODO observable in device data to keep updated
 
 publicIp.v4().then((ip) => {
   device.public_ip = ip;
