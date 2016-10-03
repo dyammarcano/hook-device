@@ -35,7 +35,11 @@ let app = express();
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 const server = require('https').createServer(cfg.cert, app).listen(cfg.port, () => {
-  //console.log('http on port ' + cfg.port);
+  console.log('https on port ' + cfg.port);
+});
+
+const server = require('http').createServer(app).listen(cfg.port, () => {
+  console.log('http on port ' + cfg.port);
 });
 
 let sio = socketio(server, { path: '/wetty/socket.io' });
